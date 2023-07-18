@@ -10,8 +10,8 @@ export class UserSession {
     @Prop({ type: String })
     session: string;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: User.name })
-    user: User;
+    @Prop({ type: String })
+    login: string;
 
 }
 

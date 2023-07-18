@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './models/user.model';
 import { Model } from 'mongoose';
 import { UserRegistrationDto } from '../auth/dto/user-registration.dto';
 import { DeleteResult } from 'mongodb';
+import { DUPLICATED_DATA } from '../../../../consts/error.conts';
 
 
 @Injectable()
@@ -13,8 +14,12 @@ export class UsersService {
     }
 
     async create (creationDto: UserRegistrationDto): Promise<User> {
-        const userDocument: UserDocument = await this.userModel.create({ ...creationDto });
-        return userDocument.toObject();
+        try {
+            const userDocument: UserDocument = await this.userModel.create({ ...creationDto });
+            return userDocument.toObject();
+        } catch (_) {
+            throw new BadRequestException(DUPLICATED_DATA);
+        }
     }
 
     async getByLogin (login: string): Promise<User> {

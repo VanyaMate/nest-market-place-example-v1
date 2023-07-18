@@ -13,34 +13,39 @@ import { UserLoginDto } from './dto/user-login.dto';
 import { Response } from 'express';
 import { ClassValidatorPipe } from '../../../../pipes/class-validator.pipe';
 import { AccessTokenGuard } from '../../../../guards/access-token.guard';
+import { User } from '../users/models/user.model';
+import { UserMapper } from '../user/user.mapper';
 
 
 @Controller('/api/v1/auth')
 export class AuthController {
 
-    constructor (private readonly authService: AuthService) {
+    constructor (private readonly authService: AuthService,
+                 private readonly userMapper: UserMapper) {
     }
 
     @Post('/registration')
     @UsePipes(ClassValidatorPipe)
-    registration (@Body() registrationDto: UserRegistrationDto) {
-        return this.authService.registration(registrationDto);
+    async registration (@Body() registrationDto: UserRegistrationDto,
+                        @Res({ passthrough: true }) response: Response) {
+        const [ user, jwt ]: [ User, string ] = await this.authService.registration(registrationDto);
+        await this.authService.setJwtCookie(response, jwt);
+        return this.userMapper.modelToPrivate(user);
     }
 
     @Post('/login')
     @UsePipes(ClassValidatorPipe)
-    login (@Body() loginDto: UserLoginDto) {
-        return this.authService.login(loginDto);
+    async login (@Body() loginDto: UserLoginDto,
+                 @Res({ passthrough: true }) response: Response) {
+        const [ user, jwt ]: [ User, string ] = await this.authService.login(loginDto);
+        await this.authService.setJwtCookie(response, jwt);
+        return this.userMapper.modelToPrivate(user);
     }
 
     @Get('/logout')
     @UseGuards(AccessTokenGuard)
     logout (@Res({ passthrough: true }) response: Response) {
         return this.authService.logout(response);
-    }
-
-    private _generateToken () {
-
     }
 
 }

@@ -1,3 +1,6 @@
+import mongoose from 'mongoose';
+
+
 export interface SetData<T> {
     value: T;
 }
@@ -5,7 +8,7 @@ export interface SetData<T> {
 export interface ISearchOptions<T> {
     limit?: number;
     offset?: number;
-    order?: [keyof T, 'asc' | 'desc'][]
+    order?: [ keyof T, 'asc' | 'desc' ][];
 }
 
 export interface IMultiplyResponse<T> {
@@ -13,3 +16,5 @@ export interface IMultiplyResponse<T> {
     options: ISearchOptions<T>,
     count: number,
 }
+
+export type ObjectId = mongoose.Schema.Types.ObjectId;

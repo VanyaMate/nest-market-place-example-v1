@@ -15,9 +15,9 @@ export class UsersTokensService {
     constructor (private readonly configService: ConfigService) {
     }
 
-    async create (login: string, sessionKey: string): Promise<string> {
+    async create (login: string, session: string): Promise<string> {
         return jwt.sign({
-            login, sessionKey,
+            login, session,
         }, this._getSecretOrPublicKey(), {
             expiresIn: '7d',
         });
@@ -37,7 +37,7 @@ export class UsersTokensService {
         }
     }
 
-    private _getSecretOrPublicKey () {
+    private _getSecretOrPublicKey (): string {
         return this.configService.get<string>(JWT_SECRET_KEY);
     }
 

@@ -38,11 +38,12 @@ export class AuthService {
     }
 
     async login (loginDto: UserLoginDto): Promise<UserAuth> {
-        const user: User        = await this.usersService.getByLogin(loginDto.login);
+        const user: User = await this.usersService.getByLogin(loginDto.login);
+        if (!user) throw new UnauthorizedException('No valid data');
         const compared: boolean = this.cryptService.compare(loginDto.password, user.password);
 
         if (compared) {
-            const session: string = await this.usersSessionsService.getByLogin(user.login);
+            const session: string = await this.usersSessionsService.getByLogin(loginDto.login);
             const jwt: string     = await this.usersTokensService.create(user.login, session);
 
             return [ user, jwt ];
@@ -51,8 +52,9 @@ export class AuthService {
         throw new UnauthorizedException('No valid data');
     }
 
-    async logout (response: Response): Promise<void> {
+    async logout (response: Response): Promise<boolean> {
         response.clearCookie(BROWZER_ACCESS_TOKEN);
+        return true;
     }
 
     async setJwtCookie (response: Response, jwt: string): Promise<void> {

@@ -10,8 +10,8 @@ export class UserActive {
     @Prop({ type: Boolean, default: false })
     isActive: boolean;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: User.name })
-    user: User;
+    @Prop({ type: String })
+    login: string;
 
 }
 

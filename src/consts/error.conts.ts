@@ -5,6 +5,7 @@ import {
 
 export const NO_ACCESS     = 'No access';
 export const NO_VALID_DATA = 'No valid data';
+export const DUPLICATED_DATA = 'Duplicated data';
 
 export const CV_NO_VALID_LENGTH = (argument: ValidationArguments) => {
     const [ min, max ] = argument.constraints;
