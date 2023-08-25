@@ -1,6 +1,3 @@
-import mongoose from 'mongoose';
-
-
 export interface SetData<T> {
     value: T;
 }
@@ -16,5 +13,3 @@ export interface IMultiplyResponse<T> {
     options: ISearchOptions<T>,
     count: number,
 }
-
-export type ObjectId = mongoose.Schema.Types.ObjectId;

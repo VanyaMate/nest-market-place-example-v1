@@ -29,6 +29,9 @@ export class AuthService {
         const regDto: UserRegistrationDto = {
             ...registrationDto, password: hash,
         };
+        /**
+         * TODO: Возможно это стоит перенести в pre('save')?
+         */
         const user: User                  = await this.usersService.create(regDto);
         const active: UserActive          = await this.usersActiveService.create(user.login, false);
         const session: string             = await this.usersSessionsService.create(user.login);

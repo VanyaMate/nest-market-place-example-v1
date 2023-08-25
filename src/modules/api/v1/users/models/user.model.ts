@@ -16,5 +16,5 @@ export class User {
 
 }
 
-export const UserSchema   = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(User);
 export type UserDocument = HydratedDocument<User>;
