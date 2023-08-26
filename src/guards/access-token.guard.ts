@@ -5,17 +5,17 @@ import {
     UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { BROWZER_ACCESS_TOKEN } from '../consts/.const';
-import { NO_ACCESS } from '../consts/error.conts';
+import { BROWZER_ACCESS_TOKEN } from '@/consts/.const';
+import { NO_ACCESS } from '@/consts/error.conts';
 import {
     UsersTokensService,
-} from '../modules/api/v1/users-tokens/users-tokens.service';
+} from '@/modules/api/v1/users-tokens/users-tokens.service';
 import {
     UserToken,
-} from '../modules/api/v1/users-tokens/models/user-token.model';
+} from '@/modules/api/v1/users-tokens/models/user-token.model';
 import {
     UsersSessionsService,
-} from '../modules/api/v1/users-sessions/users-sessions.service';
+} from '@/modules/api/v1/users-sessions/users-sessions.service';
 
 
 @Injectable()
@@ -36,8 +36,8 @@ export class AccessTokenGuard implements CanActivate {
             throw new UnauthorizedException(NO_ACCESS);
         }
 
-        const { login, session }     = verified;
-        const sessionByLogin: string = await this.usersSessionsService.getByLogin(login);
+        const { login, session }            = verified;
+        const sessionByLogin: string | null = await this.usersSessionsService.getByLogin(login);
         if (sessionByLogin !== session) {
             throw new UnauthorizedException(NO_ACCESS);
         }

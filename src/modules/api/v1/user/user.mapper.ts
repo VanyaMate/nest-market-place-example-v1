@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../users/models/user.model';
+import { User } from '@/modules/api/v1/user/models/user.model';
 import { UserPrivate, UserPublic } from './user.interface';
 
 

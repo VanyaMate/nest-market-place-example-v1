@@ -4,7 +4,7 @@ import { UsersService } from '../users/users.service';
 import { UsersActiveService } from '../users-active/users-active.service';
 import { UsersSessionsService } from '../users-sessions/users-sessions.service';
 import { UsersTokensService } from '../users-tokens/users-tokens.service';
-import { User } from '../users/models/user.model';
+import { User } from '@/modules/api/v1/user/models/user.model';
 import { Response } from 'express';
 import { BROWZER_ACCESS_TOKEN } from '../../../../consts/.const';
 import { getMsDays } from '../../../../helpers/utils';

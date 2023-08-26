@@ -1,4 +1,4 @@
-import { User } from '../users/models/user.model';
+import { User } from '@/modules/api/v1/user/models/user.model';
 
 
 export type UserAuth = [User, string];

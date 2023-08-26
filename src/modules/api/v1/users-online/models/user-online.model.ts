@@ -1,9 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { Document, HydratedDocument } from 'mongoose';
+import { Data } from '@/helpers/types';
 
 
 @Schema()
-export class UserOnline {
+export class UserOnline extends Document {
 
     @Prop({ type: String, unique: true, required: true })
     login: string;

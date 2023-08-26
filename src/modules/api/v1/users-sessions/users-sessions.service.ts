@@ -38,7 +38,7 @@ export class UsersSessionsService {
 
     async getByLogin (login: string): Promise<string | null> {
         try {
-            const userSession: UserSession = await this.userSessionModel.findOne({ login });
+            const userSession: UserSession | null = await this.userSessionModel.findOne({ login });
             if (userSession) {
                 return userSession.session;
             } else {

@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from './models/user.model';
+import { User, UserDocument } from '@/modules/api/v1/user/models/user.model';
 import { Model } from 'mongoose';
 import { UserRegistrationDto } from '../auth/dto/user-registration.dto';
 import { DeleteResult } from 'mongodb';
-import { DUPLICATED_DATA } from '../../../../consts/error.conts';
+import { DUPLICATED_DATA } from '@/consts/error.conts';
 
 
 @Injectable()

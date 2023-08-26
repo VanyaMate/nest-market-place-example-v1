@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from '../users/models/user.model';
+import {
+    User,
+    UserDocument,
+} from '@/modules/api/v1/user/models/user.model';
 import { Model } from 'mongoose';
 import { UsersSessionsService } from '../users-sessions/users-sessions.service';
 import { UsersTokensService } from '../users-tokens/users-tokens.service';
 import { UserAuth } from './user.interface';
-import { AuthService } from '../auth/auth.service';
+import { DeleteResult } from 'mongodb';
 
 
 @Injectable()
@@ -24,6 +27,11 @@ export class UserService {
         return this._updateKey(login, 'email', email);
     }
 
+    async delete (login: string): Promise<boolean> {
+        const deleteResult: DeleteResult = await this.userModel.deleteOne({ login });
+        return !!deleteResult.deletedCount;
+    }
+
     async setPassword (login: string, password: string): Promise<UserAuth> {
         return this._refreshWithToken(login, 'password', password);
     }
@@ -40,7 +48,7 @@ export class UserService {
     }
 
     private async _updateKey (login: string, key: keyof User, value: string): Promise<User> {
-        const user: UserDocument = await this.userModel.findOne({ [key]: value });
+        const user: UserDocument = await this.userModel.findOne({ login });
         user[key]                = value;
         await user.save();
         return user.toObject();

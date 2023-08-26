@@ -11,9 +11,9 @@ import { AuthService } from './auth.service';
 import { UserRegistrationDto } from './dto/user-registration.dto';
 import { UserLoginDto } from './dto/user-login.dto';
 import { Response } from 'express';
-import { ClassValidatorPipe } from '../../../../pipes/class-validator.pipe';
-import { AccessTokenGuard } from '../../../../guards/access-token.guard';
-import { User } from '../users/models/user.model';
+import { ClassValidatorPipe } from '@/pipes/class-validator.pipe';
+import { AccessTokenGuard } from '@/guards/access-token.guard';
+import { User } from '@/modules/api/v1/user/models/user.model';
 import { UserMapper } from '../user/user.mapper';
 
 

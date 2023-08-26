@@ -1,6 +1,6 @@
 import { Prop, Schema } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { User } from '../../users/models/user.model';
+import { User } from '@/modules/api/v1/user/models/user.model';
 import { Conversation } from '../../conversations/models/conversation.module';
 
 

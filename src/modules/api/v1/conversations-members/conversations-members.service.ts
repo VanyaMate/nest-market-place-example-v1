@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { ObjectId } from '../.interfaces';
 import { InjectModel } from '@nestjs/mongoose';
-import { ConversationMember } from './models/conversation-member.model';
+import { ConversationMember } from '@/modules/api/v1/conversations-members/models/conversation-member.model';
 import { Model } from 'mongoose';
-import { NO_VALID_DATA } from '../../../../consts/error.conts';
+import { NO_VALID_DATA } from '@/consts/error.conts';
+import { ObjectId } from '@/modules/database/mongo/database.types';
 
 
 @Injectable()
